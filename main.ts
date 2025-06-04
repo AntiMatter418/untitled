@@ -27,6 +27,7 @@ browserEvents.onMouseMove(function (x, y) {
     mySprite2.setPosition(x, y)
 })
 let dash = false
+let swordrot = 0
 let projectile: Sprite = null
 let mySprite: Sprite = null
 let mySprite2: Sprite = null
@@ -111,7 +112,15 @@ statusbar.setColor(6, 5)
 statusbar.max = 3
 statusbar.value = 3
 statusbar.attachToSprite(mySprite)
-let sword_rotations = scaling.createRotations(playersword.image, 360)
+let sword_rotations: number = scaling.createRotations(playersword.image, 360)
+game.onUpdate(function () {
+    let rotations: Image[] = []
+    sword_rotations = spriteutils.radiansToDegrees(spriteutils.angleFrom(mySprite, mySprite2))
+    if (swordrot < 0) {
+        swordrot += 360
+    }
+    playersword.setImage(rotations[Math.round(swordrot)])
+})
 game.onUpdateInterval(2000, function () {
     if (dash == false) {
         statusbar.value += 1
