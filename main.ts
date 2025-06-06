@@ -8,7 +8,7 @@ namespace SpriteKind {
 }
 sprites.onOverlap(SpriteKind.parryedprojectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
-    statusbar2.value += -4
+    statusbar2.value += -10
 })
 function TILE_EFFECTS () {
     for (let value of tiles.getTilesByType(sprites.dungeon.collectibleInsignia)) {
@@ -201,10 +201,10 @@ scene.onHitWall(SpriteKind.parryedprojectile, function (sprite, location) {
 })
 sprites.onOverlap(SpriteKind.damaging_sword, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (swordstartup == true) {
-        statusbar2.value += -1.5
+        statusbar2.value += -6
         pause(100)
     } else {
-        statusbar2.value += -0.03
+        statusbar2.value += -0.1
     }
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
