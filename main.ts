@@ -10,6 +10,35 @@ sprites.onOverlap(SpriteKind.parryedprojectile, SpriteKind.Enemy, function (spri
     sprites.destroy(sprite)
     statusbar2.value += -4
 })
+function TILE_EFFECTS () {
+    for (let value of tiles.getTilesByType(sprites.dungeon.collectibleInsignia)) {
+        tiles.placeOnTile(mySprite, value)
+    }
+    for (let value of tiles.getTilesByType(sprites.dungeon.collectibleRedCrystal)) {
+        tiles.placeOnTile(myoponent, value)
+    }
+    for (let value of tiles.getTilesByType(sprites.dungeon.collectibleBlueCrystal)) {
+        mySprite3 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 7 7 . . . . . . . 
+            . . . . . . 5 1 1 5 . . . . . . 
+            . . . . . 7 1 1 1 1 7 . . . . . 
+            . . . . . 7 1 1 1 1 7 . . . . . 
+            . . . . . . 5 1 1 5 . . . . . . 
+            . . . . . . . 7 7 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.homing_enemy_projectile)
+        tiles.placeOnTile(mySprite3, value)
+    }
+}
 function challenger3_attack () {
 	
 }
@@ -26,12 +55,115 @@ browserEvents.onMouseMove(function (x, y) {
     mySprite2.setPosition(x + (scene.cameraProperty(CameraProperty.X) - scene.screenWidth() / 2), y + (scene.cameraProperty(CameraProperty.Y) - scene.screenHeight() / 2))
 })
 function challenger2_attack () {
-	
+    projectile2 = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . 2 2 . . . . . . . 
+        . . . . . . 3 1 1 3 . . . . . . 
+        . . . . . 2 1 1 1 1 2 . . . . . 
+        . . . . . 2 1 1 1 1 2 . . . . . 
+        . . . . . . 3 1 1 3 . . . . . . 
+        . . . . . . . 2 2 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, myoponent, 0, 0)
+    projectile2.setKind(SpriteKind.enemyprojectile)
+    spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent, mySprite), 150)
+    projectile2.setFlag(SpriteFlag.AutoDestroy, false)
+    pause(650)
+    projectile3 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . d d . . . . . . . 
+        . . . d . . d . . . . d d . . . 
+        . . . d . . b b b c d . . . . . 
+        . . . . d b d d d d c . . . . . 
+        . . . . b d d 6 b b b c d . . . 
+        . . d . c d b 6 6 6 b c . d . . 
+        . . d . c d 6 6 6 b b c . d . . 
+        . . . d c b b b 6 b b f . . . . 
+        . . . . . f b b b b f d . . . . 
+        . . . . . d f f f f . . d . . . 
+        . . . d d . . . . d . . d . . . 
+        . . . . . . . d d . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.enemyprojectile)
+    animation.runImageAnimation(
+    projectile3,
+    [img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . d d . . . . . . . 
+        . . . d . . d . . . . d d . . . 
+        . . . d . . b b b c d . . . . . 
+        . . . . d b d d d d c . . . . . 
+        . . . . b d d 6 b b b c d . . . 
+        . . d . c d b 6 6 6 b c . d . . 
+        . . d . c d 6 6 6 b b c . d . . 
+        . . . d c b b b 6 b b f . . . . 
+        . . . . . f b b b b f d . . . . 
+        . . . . . d f f f f . . d . . . 
+        . . . d d . . . . d . . d . . . 
+        . . . . . . . d d . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . d . . . d d . . . . 
+        . . . . . d . . . d . . . . . . 
+        . . d . . d b b b c . . . . . . 
+        . . d . . b d d d d c d d . . . 
+        . . . d b d 6 b b 6 b c . d . . 
+        . . . . c d b 6 6 b b c . . . . 
+        . . . . c d b 6 6 b b c . . . . 
+        . . d . c b 6 b b 6 b f d . . . 
+        . . . d d f b b b b f . . d . . 
+        . . . . . . f f f f d . . d . . 
+        . . . . . . d . . . d . . . . . 
+        . . . . d d . . . d . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . d d . . . . . . 
+        . . . d . . . d . . . d d . . . 
+        . . . d . . b b b c d . . . . . 
+        . . . . d b d d d d c . . . . . 
+        . . d . b d d b 6 b b c . . . . 
+        . . d . c d 6 6 6 b b c d . . . 
+        . . . d c d b 6 6 6 b c . d . . 
+        . . . . c b b 6 b b b f . d . . 
+        . . . . . f b b b b f d . . . . 
+        . . . . . d f f f f . . d . . . 
+        . . . d d . . . d . . . d . . . 
+        . . . . . . d d . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `],
+    100,
+    true
+    )
+    projectile3.setPosition(myoponent.x, myoponent.y)
+    spriteutils.setVelocityAtAngle(projectile3, spriteutils.angleFrom(myoponent, mySprite), 200)
+    projectile3.setBounceOnWall(true)
+    projectile3.setFlag(SpriteFlag.AutoDestroy, false)
+    pause(1000)
+    sprites.destroy(projectile3, effects.fire, 500)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.homing_enemy_projectile, function (sprite, otherSprite) {
     if (parrytriger == true) {
-        spriteutils.setVelocityAtAngle(otherSprite, spriteutils.angleFrom(sprite, myoponent1), 200)
+        spriteutils.setVelocityAtAngle(otherSprite, spriteutils.angleFrom(sprite, myoponent), 200)
         otherSprite.setKind(SpriteKind.parryedprojectile)
+        info.changeScoreBy(2)
         hitstunfunction()
     } else if (dash == true) {
         info.changeLifeBy(0)
@@ -59,9 +191,9 @@ function challenger1_attack () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, myoponent1, 0, 0)
+        `, myoponent, 0, 0)
     projectile2.setKind(SpriteKind.enemyprojectile)
-    spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent1, mySprite), 150)
+    spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent, mySprite), 150)
     projectile2.setFlag(SpriteFlag.AutoDestroy, false)
 }
 scene.onHitWall(SpriteKind.parryedprojectile, function (sprite, location) {
@@ -80,8 +212,9 @@ scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.enemyprojectile, function (sprite, otherSprite) {
     if (parrytriger == true) {
-        spriteutils.setVelocityAtAngle(otherSprite, spriteutils.angleFrom(sprite, myoponent1), 300)
+        spriteutils.setVelocityAtAngle(otherSprite, spriteutils.angleFrom(sprite, myoponent), 300)
         otherSprite.setKind(SpriteKind.parryedprojectile)
+        info.changeScoreBy(1)
         hitstunfunction()
     } else if (dash == true) {
         info.changeLifeBy(0)
@@ -92,10 +225,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.enemyprojectile, function (sprit
 })
 let list: Sprite[] = []
 let swordrot = 0
+let projectile3: Sprite = null
 let projectile2: Sprite = null
-let statusbar2: StatusBarSprite = null
 let mySprite3: Sprite = null
-let myoponent1: Sprite = null
+let statusbar2: StatusBarSprite = null
+let myoponent: Sprite = null
 let mySprite: Sprite = null
 let mySprite2: Sprite = null
 let dash = false
@@ -178,7 +312,7 @@ mySprite = sprites.create(img`
     . . . f f f f f f f f . . . . . 
     . . . . . f f . . f f . . . . . 
     `, SpriteKind.Player)
-myoponent1 = sprites.create(img`
+myoponent = sprites.create(img`
     ........................
     ........................
     ........................
@@ -208,33 +342,7 @@ controller.moveSprite(mySprite, 150, 150)
 scene.cameraFollowSprite(mySprite)
 tiles.setCurrentTilemap(tilemap`level1`)
 scene.setBackgroundColor(13)
-for (let value of tiles.getTilesByType(sprites.dungeon.collectibleInsignia)) {
-    tiles.placeOnTile(mySprite, value)
-}
-for (let value of tiles.getTilesByType(sprites.dungeon.collectibleRedCrystal)) {
-    tiles.placeOnTile(myoponent1, value)
-}
-for (let value of tiles.getTilesByType(sprites.dungeon.collectibleBlueCrystal)) {
-    mySprite3 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . 7 7 . . . . . . . 
-        . . . . . . 5 1 1 5 . . . . . . 
-        . . . . . 7 1 1 1 1 7 . . . . . 
-        . . . . . 7 1 1 1 1 7 . . . . . 
-        . . . . . . 5 1 1 5 . . . . . . 
-        . . . . . . . 7 7 . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.homing_enemy_projectile)
-    tiles.placeOnTile(mySprite3, value)
-}
+TILE_EFFECTS()
 let statusbar = statusbars.create(20, 4, StatusBarKind.Health)
 statusbar.setBarSize(2, 15)
 statusbar.setColor(6, 5)
@@ -274,6 +382,28 @@ game.onUpdate(function () {
 game.onUpdate(function () {
     if (hitstun == true) {
         pause(25)
+    }
+})
+game.onUpdate(function () {
+    if (statusbar2.value == 0) {
+        if (challenger1 == true) {
+            info.setLife(5)
+            tiles.setCurrentTilemap(tilemap`level2`)
+            scene.setBackgroundColor(11)
+            TILE_EFFECTS()
+            challenger1 = false
+            challenger2 = true
+            statusbar2.max = 80
+            statusbar2.value = 80
+            myoponent.follow(mySprite, 25)
+        } else if (challenger2 == true) {
+            challenger2 = false
+            challenger3 = true
+            statusbar2.max = 120
+            statusbar2.value = 120
+        } else if (challenger3 == true) {
+            game.gameOver(true)
+        }
     }
 })
 game.onUpdateInterval(2000, function () {

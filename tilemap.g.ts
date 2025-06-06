@@ -2,6 +2,22 @@
 namespace myTiles {
     //% fixedInstance jres blockIdentity=images._tile
     export const transparency16 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile1 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile2 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile3 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile4 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile5 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile6 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile7 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile8 = image.ofBuffer(hex``);
 
     helpers._registerFactory("tilemap", function(name: string) {
         switch(helpers.stringTrim(name)) {
@@ -40,6 +56,41 @@ namespace myTiles {
 ................................
 ..2222222222222222222222222222..
 `, [myTiles.transparency16,sprites.dungeon.floorLight0,sprites.dungeon.floorLight1,sprites.dungeon.collectibleInsignia,sprites.dungeon.floorLight2,sprites.dungeon.collectibleRedCrystal,sprites.dungeon.doorLockedSouth,sprites.dungeon.doorLockedNorth,sprites.dungeon.doorLockedWest,sprites.dungeon.doorLockedEast,sprites.dungeon.stairNorth,sprites.dungeon.stairWest,sprites.dungeon.stairEast,sprites.dungeon.stairSouth,sprites.dungeon.collectibleBlueCrystal,sprites.builtin.forestTiles0,sprites.dungeon.floorLightMoss,sprites.dungeon.floorLight5,sprites.dungeon.floorLight4], TileScale.Sixteen);
+            case "level2":
+            case "level2":return tiles.createTilemap(hex`200020000304040b08130b08080b08080b08080b0b08080b08080b08080b08080b080807051010101016101010101010101010101010101010101010101010101010100905100110101610101010101010101010101010101010101010101010101010090c1010101016101010101010101010101010101010101010101010101010100e0f1212121016101010101010101010101010101010101010101010101010100905101010101010101010101010101010101010101010101010101010101010090c1010101010101010101010101010101010101010101010101010101010100e051010101010101010101010101010101010101010101010101010101010100905101010101010101010101010101010101010101010101010101010101010090c1010101010101010101010101010101010101010101010101010101010100e051010101010101010101010101010101010101010101010101010101010100905101010101010101010101010101010101010101010101010101010101010090c1010101010101010101010101010101010101010101010101010101010100e051010101010101010101010101010101010101010101010101010101010100905101010101010101010101010101010101010101010101010101010101010090c1010101010101010101010101010101010101010101010101010101010100e0c1010101010101010101010101010101010101010101010101010101010100e051010101010101010101010101010101010101010101010101010101010100905101010101010101010101010101010101010101010101010101010101010090c1010101010101010101010101010101010101010101010101010101010100e051010101010101010101010101010101010101010101010101010101010100905101010101010101010101010101010101010101010101010101010101010090c1010101010101010101010101010101010101010101010101010101010100e051010101010101010101010101010101010101010101010101010101010100905101010101010101010101010101010101010101010101010101010101010090c1010101010101010101010101010101010101010101010101010101010100e051010101010101010101010101010101010101010101010101010101010100905101010101010101010101010101010101010101010101010101010101010090c1010101010101010101010101010101010101010101010101010101010100e05101010101010101010101010101010101010101010101010101010101110090510101010101010101010101010101010101010101010101010101010101009060a0a0d0a0a0d0a0a0d0a0a0d0a0a0d0d0a0a0d0a0a0d0a0a0d0a0a0d0a0a02`, img`
+22222222222222222222222222222222
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+2..............................2
+22222222222222222222222222222222
+`, [myTiles.transparency16,sprites.dungeon.collectibleInsignia,sprites.dungeon.purpleOuterSouthWest,sprites.dungeon.purpleOuterNorthWest,sprites.dungeon.purpleOuterNorth0,sprites.dungeon.purpleOuterWest0,sprites.dungeon.purpleOuterSouthEast,sprites.dungeon.purpleOuterNorthEast,sprites.dungeon.purpleOuterNorth1,sprites.dungeon.purpleOuterEast0,sprites.dungeon.purpleOuterSouth1,sprites.dungeon.purpleOuterNorth2,sprites.dungeon.purpleOuterWest2,sprites.dungeon.purpleOuterSouth2,sprites.dungeon.purpleOuterEast2,myTiles.tile2,sprites.dungeon.floorDark0,sprites.dungeon.collectibleRedCrystal,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8], TileScale.Sixteen);
         }
         return null;
     })
@@ -47,6 +98,22 @@ namespace myTiles {
     helpers._registerFactory("tile", function(name: string) {
         switch(helpers.stringTrim(name)) {
             case "transparency16":return transparency16;
+            case "myTile":
+            case "tile1":return tile1;
+            case "myTile0":
+            case "tile2":return tile2;
+            case "myTile1":
+            case "tile3":return tile3;
+            case "myTile2":
+            case "tile4":return tile4;
+            case "myTile3":
+            case "tile5":return tile5;
+            case "myTile4":
+            case "tile6":return tile6;
+            case "myTile5":
+            case "tile7":return tile7;
+            case "myTile6":
+            case "tile8":return tile8;
         }
         return null;
     })
