@@ -6,6 +6,7 @@ namespace SpriteKind {
     export const damaging_sword = SpriteKind.create()
     export const homing_enemy_projectile = SpriteKind.create()
     export const spike = SpriteKind.create()
+    export const nail = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.spike, function (sprite, otherSprite) {
     if (dash == true) {
@@ -640,6 +641,7 @@ forever(function () {
         . . . d . . 
         `, mySprite, 50, 50)
     spriteutils.setVelocityAtAngle(projectile, spriteutils.angleFrom(mySprite, spriteutils.pos(mySprite2.x, mySprite2.y)), 50)
+    projectile.setKind(SpriteKind.nail)
     animation.runImageAnimation(
     projectile,
     [img`
@@ -711,6 +713,8 @@ forever(function () {
     )
     pause(900)
     projectile.setVelocity(0, 0)
+    pause(300)
+    sprites.destroy(projectile)
     pause(100)
 })
 forever(function () {
