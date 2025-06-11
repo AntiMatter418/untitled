@@ -93,7 +93,7 @@ function challenger3_attack () {
         . . . . . . . . . . . . . . . . 
         `, myoponent, 0, 0)
     projectile2.setKind(SpriteKind.enemyprojectile)
-    spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent, mySprite), 100)
+    spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent, mySprite), 75)
     projectile2.setFlag(SpriteFlag.AutoDestroy, false)
     projectile2.setFlag(SpriteFlag.GhostThroughWalls, true)
     pause(200)
@@ -116,7 +116,7 @@ function challenger3_attack () {
         . . . . . . . . . . . . . . . . 
         `, myoponent, 0, 0)
     projectile2.setKind(SpriteKind.enemyprojectile)
-    spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent, mySprite), 100)
+    spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent, mySprite), 125)
     projectile2.setFlag(SpriteFlag.AutoDestroy, false)
     projectile2.setFlag(SpriteFlag.GhostThroughWalls, true)
     pause(500)
@@ -201,6 +201,7 @@ function challenger3_attack () {
     projectile3.setFlag(SpriteFlag.AutoDestroy, false)
     pause(600)
     sprites.destroy(projectile3)
+    pause(600)
 }
 function hitstunfunction () {
     hitstun = true
@@ -384,6 +385,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.enemyprojectile, function (sprit
     }
 })
 let list: Sprite[] = []
+let projectile: Sprite = null
 let swordrot = 0
 let projectile3: Sprite = null
 let projectile2: Sprite = null
@@ -521,7 +523,7 @@ game.onUpdate(function () {
     if (swordrot < 0) {
         swordrot += 360
     }
-    if (browserEvents.MouseLeft.isPressed()) {
+    if (browserEvents.MouseRight.isPressed()) {
         spriteutils.placeAngleFrom(
         playersword,
         spriteutils.degreesToRadians(swordrot),
@@ -578,11 +580,11 @@ game.onUpdateInterval(2000, function () {
     }
 })
 forever(function () {
-    pauseUntil(() => browserEvents.MouseLeft.isPressed())
+    pauseUntil(() => browserEvents.MouseRight.isPressed())
     swordstartup = true
     pause(100)
     swordstartup = false
-    pauseUntil(() => !(browserEvents.MouseLeft.isPressed()))
+    pauseUntil(() => !(browserEvents.MouseRight.isPressed()))
 })
 forever(function () {
     pauseUntil(() => controller.A.isPressed())
@@ -626,6 +628,90 @@ forever(function () {
         . . . . . f f . . f f . . . . . 
         `)
     pauseUntil(() => hitstun || pause2(200))
+})
+forever(function () {
+    pauseUntil(() => browserEvents.MouseLeft.isPressed())
+    projectile = sprites.createProjectileFromSprite(img`
+        . b c f f . 
+        . . b c . . 
+        . . b c . . 
+        . . d b . . 
+        . . . b . . 
+        . . . d . . 
+        `, mySprite, 50, 50)
+    spriteutils.setVelocityAtAngle(projectile, spriteutils.angleFrom(mySprite, spriteutils.pos(mySprite2.x, mySprite2.y)), 50)
+    animation.runImageAnimation(
+    projectile,
+    [img`
+        . c c f f . 
+        . . b c . . 
+        . . b c . . 
+        . . d b . . 
+        . . . b . . 
+        . . . d . . 
+        `,img`
+        . . f f . . 
+        . f c . . . 
+        c b b c . . 
+        c . d b c . 
+        . . . d b . 
+        . . . . d d 
+        `,img`
+        . . . . . . 
+        f . . . . . 
+        f c c b b d 
+        c b b d . . 
+        c . . . . . 
+        . . . . . . 
+        `,img`
+        . . . . . d 
+        . . . c b d 
+        f . c b d . 
+        f c b d . . 
+        . f b . . . 
+        . . c c . . 
+        `,img`
+        . . d . . . 
+        . . b . . . 
+        . . b d . . 
+        . . c b . . 
+        . . c b . . 
+        . f f c c . 
+        `,img`
+        d d . . . . 
+        . b d . . . 
+        . c b d . c 
+        . . c b b c 
+        . . . c f . 
+        . . f f . . 
+        `,img`
+        . . . . . . 
+        . . . . . c 
+        . . d b b c 
+        d b b c c f 
+        . . . . . f 
+        . . . . . . 
+        `,img`
+        . . c c . . 
+        . . . b f . 
+        . . d b c f 
+        . d b c . f 
+        d b c . . . 
+        d . . . . . 
+        `,img`
+        . c c f f . 
+        . . b c . . 
+        . . b c . . 
+        . . d b . . 
+        . . . b . . 
+        . . . d . . 
+        `],
+    100,
+    false
+    )
+    pause(900)
+    projectile.setVelocity(0, 0)
+    pause(100)
 })
 forever(function () {
     pauseUntil(() => browserEvents.Shift.isPressed())
