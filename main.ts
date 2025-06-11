@@ -7,6 +7,7 @@ namespace SpriteKind {
     export const homing_enemy_projectile = SpriteKind.create()
     export const spike = SpriteKind.create()
     export const nail = SpriteKind.create()
+    export const damaging_nail = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.spike, function (sprite, otherSprite) {
     if (dash == true) {
@@ -17,7 +18,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.spike, function (sprite, otherSp
     }
 })
 sprites.onOverlap(SpriteKind.damaging_sword, SpriteKind.nail, function (sprite, otherSprite) {
-	
+    deflected = true
+    spriteutils.setVelocityAtAngle(projectile, spriteutils.angleFrom(mySprite, spriteutils.pos(mySprite2.x, mySprite2.y)), 50)
+    projectile.setKind(SpriteKind.damaging_nail)
+    pause(500)
+    sprites.destroy(projectile)
+    deflected = false
 })
 sprites.onOverlap(SpriteKind.parryedprojectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
@@ -55,7 +61,7 @@ function TILE_EFFECTS () {
             `, SpriteKind.homing_enemy_projectile)
         tiles.placeOnTile(mySprite3, value)
     }
-    for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
+    for (let value of tiles.getTilesByType(assets.tile`myTile10`)) {
         mySprite4 = sprites.create(img`
             . . . . 7 . . . . . . . 7 . . . 
             . . . 7 d . . . . . . 7 d . . . 
@@ -78,6 +84,42 @@ function TILE_EFFECTS () {
     }
 }
 function challenger3_attack () {
+    projectile4 = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . a a . . . . . . . 
+        . . . . . . b 1 1 b . . . . . . 
+        . . . . . a 1 1 1 1 a . . . . . 
+        . . . . . a 1 1 1 1 a . . . . . 
+        . . . . . . b 1 1 b . . . . . . 
+        . . . . . . . a a . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, myoponent, 0, 0)
+    projectile5 = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . a a . . . . . . . 
+        . . . . . . b 1 1 b . . . . . . 
+        . . . . . a 1 1 1 1 a . . . . . 
+        . . . . . a 1 1 1 1 a . . . . . 
+        . . . . . . b 1 1 b . . . . . . 
+        . . . . . . . a a . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, myoponent, 0, 0)
     projectile2 = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -96,33 +138,20 @@ function challenger3_attack () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, myoponent, 0, 0)
+    projectile4.setKind(SpriteKind.enemyprojectile)
+    projectile5.setKind(SpriteKind.enemyprojectile)
     projectile2.setKind(SpriteKind.enemyprojectile)
-    spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent, mySprite), 75)
+    projectile4.setFlag(SpriteFlag.AutoDestroy, false)
     projectile2.setFlag(SpriteFlag.AutoDestroy, false)
+    projectile5.setFlag(SpriteFlag.AutoDestroy, false)
+    projectile4.setFlag(SpriteFlag.GhostThroughWalls, true)
+    projectile5.setFlag(SpriteFlag.GhostThroughWalls, true)
     projectile2.setFlag(SpriteFlag.GhostThroughWalls, true)
+    spriteutils.setVelocityAtAngle(projectile4, spriteutils.angleFrom(myoponent, mySprite), 75)
     pause(200)
-    projectile2 = sprites.createProjectileFromSprite(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . a a . . . . . . . 
-        . . . . . . b 1 1 b . . . . . . 
-        . . . . . a 1 1 1 1 a . . . . . 
-        . . . . . a 1 1 1 1 a . . . . . 
-        . . . . . . b 1 1 b . . . . . . 
-        . . . . . . . a a . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, myoponent, 0, 0)
-    projectile2.setKind(SpriteKind.enemyprojectile)
+    spriteutils.setVelocityAtAngle(projectile5, spriteutils.angleFrom(myoponent, mySprite), 100)
+    pause(200)
     spriteutils.setVelocityAtAngle(projectile2, spriteutils.angleFrom(myoponent, mySprite), 125)
-    projectile2.setFlag(SpriteFlag.AutoDestroy, false)
-    projectile2.setFlag(SpriteFlag.GhostThroughWalls, true)
     pause(500)
     projectile3 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -216,8 +245,16 @@ function pause2 (time: number) {
     pause(time)
     return true
 }
+sprites.onOverlap(SpriteKind.nail, SpriteKind.homing_enemy_projectile, function (sprite, otherSprite) {
+    sprites.destroy(sprite)
+    sprites.destroy(otherSprite)
+})
 browserEvents.onMouseMove(function (x, y) {
     mySprite2.setPosition(x + (scene.cameraProperty(CameraProperty.X) - scene.screenWidth() / 2), y + (scene.cameraProperty(CameraProperty.Y) - scene.screenHeight() / 2))
+})
+sprites.onOverlap(SpriteKind.nail, SpriteKind.spike, function (sprite, otherSprite) {
+    sprites.destroy(sprite)
+    sprites.destroy(otherSprite)
 })
 function challenger2_attack () {
     projectile2 = sprites.createProjectileFromSprite(img`
@@ -364,6 +401,16 @@ function challenger1_attack () {
 scene.onHitWall(SpriteKind.parryedprojectile, function (sprite, location) {
     sprites.destroy(sprite)
 })
+sprites.onOverlap(SpriteKind.nail, SpriteKind.enemyprojectile, function (sprite, otherSprite) {
+    sprites.destroy(sprite)
+    sprites.destroy(otherSprite)
+})
+sprites.onOverlap(SpriteKind.damaging_nail, SpriteKind.spike, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite)
+})
+sprites.onOverlap(SpriteKind.damaging_nail, SpriteKind.homing_enemy_projectile, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite)
+})
 sprites.onOverlap(SpriteKind.damaging_sword, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (swordstartup == true) {
         statusbar2.value += -6
@@ -371,6 +418,13 @@ sprites.onOverlap(SpriteKind.damaging_sword, SpriteKind.Enemy, function (sprite,
     } else {
         statusbar2.value += -0.1
     }
+})
+sprites.onOverlap(SpriteKind.damaging_nail, SpriteKind.Enemy, function (sprite, otherSprite) {
+    sprites.destroy(sprite)
+    statusbar2.value += -6
+})
+sprites.onOverlap(SpriteKind.damaging_nail, SpriteKind.enemyprojectile, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite)
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     sprites.destroy(sprite)
@@ -389,12 +443,14 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.enemyprojectile, function (sprit
     }
 })
 let list: Sprite[] = []
-let projectile: Sprite = null
 let swordrot = 0
 let projectile3: Sprite = null
 let projectile2: Sprite = null
+let projectile5: Sprite = null
+let projectile4: Sprite = null
 let mySprite4: Sprite = null
 let mySprite3: Sprite = null
+let projectile: Sprite = null
 let statusbar2: StatusBarSprite = null
 let myoponent: Sprite = null
 let mySprite: Sprite = null
@@ -403,6 +459,8 @@ let dash = false
 let parrytriger = false
 let swordstartup = false
 let hitstun = false
+let deflected = false
+deflected = false
 let challenger1 = true
 let challenger2 = false
 let challenger3 = false
@@ -522,6 +580,13 @@ statusbar2.value = 40
 statusbar2.setColor(2, 1)
 statusbar2.positionDirection(CollisionDirection.Bottom)
 let sword_rotations = scaling.createRotations(playersword.image, 360)
+game.splash("first challenger is stationarry and shoots projectiles at you")
+game.splash("space to parry")
+game.splash("WASD to move your character")
+game.splash("right click to throw a nail")
+game.splash("left click to stab with your sword")
+game.splash("shift to dash")
+game.splash("cursor aims the previous abilities")
 game.onUpdate(function () {
     swordrot = spriteutils.radiansToDegrees(spriteutils.angleFrom(mySprite, mySprite2))
     if (swordrot < 0) {
@@ -554,6 +619,8 @@ game.onUpdate(function () {
 game.onUpdate(function () {
     if (statusbar2.value == 0) {
         if (challenger1 == true) {
+            game.splash("second challenger follows you slowly and fires bouncing projectiles")
+            game.splash("spikes are placed around the arena disable them with nails")
             info.setLife(5)
             tiles.setCurrentTilemap(tilemap`level2`)
             scene.setBackgroundColor(11)
@@ -564,6 +631,8 @@ game.onUpdate(function () {
             statusbar2.value = 200
             myoponent.follow(mySprite, 25)
         } else if (challenger2 == true) {
+            game.splash("third challenger fires wall piercing projectiles and moves faster")
+            game.splash("FINAL challenger")
             info.setLife(5)
             tiles.setCurrentTilemap(tilemap`level3`)
             scene.setBackgroundColor(11)
@@ -715,10 +784,12 @@ forever(function () {
     false
     )
     pause(900)
-    projectile.setVelocity(0, 0)
-    pause(300)
-    sprites.destroy(projectile)
-    pause(100)
+    if (!(deflected == true)) {
+        projectile.setVelocity(0, 0)
+        pause(300)
+        sprites.destroy(projectile)
+        pause(100)
+    }
 })
 forever(function () {
     pauseUntil(() => browserEvents.Shift.isPressed())
