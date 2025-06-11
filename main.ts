@@ -16,6 +16,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.spike, function (sprite, otherSp
         sprites.destroy(otherSprite)
     }
 })
+sprites.onOverlap(SpriteKind.damaging_sword, SpriteKind.nail, function (sprite, otherSprite) {
+	
+})
 sprites.onOverlap(SpriteKind.parryedprojectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
     statusbar2.value += -10
